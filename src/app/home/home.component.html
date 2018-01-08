@@ -1,0 +1,61 @@
+<div class="container">
+  <h3>Employee Forms</h3>
+  <!--"novalidate" means we have switched off browser validation as 
+      the validation messages are different in different browsers-->
+  <form #form="ngForm" novalidate>
+    <!--"required" specify it is a mandatory field -->
+    <div class="form-group">
+      <label>First name</label>
+      <!-- "form-control" takes up the full length of the view ccontrol-->
+      <input class="form-control" type="text" placeholder="First name" required name ="firstName" ngModel>
+    </div>
+
+    <div class="form-group">
+      <label>Last name</label>
+      <!-- "form-control" takes up the full length of the view ccontrol-->
+      <input class="form-control" placeholder="Last name" type="text" required name ="lastName" ngModel>
+    </div>
+
+    <div class="checkbox">
+      <label>
+        <input type="checkbox" name="is-full-time" ngModel>Full time employee
+      </label>
+    </div>
+    <label>Payment type</label>
+    <div class="radio">
+      <label>
+        <!--"checcked" means the default value of the group-->
+        <!--"name" indicates the radio button group-->
+        <input type="radio" name="pay-type" value="w2" checked ngModel>
+        w2
+      </label>
+    </div>
+    <div class="radio">
+        <label>
+          <!--"checcked" means the default value of the group-->
+          <!--"name" indicates the radio button group-->
+          <input type="radio" name="pay-type" value="1099" ngModel>
+          1099
+        </label>
+    </div>
+    <div class ="form-group">
+      <label>Primary Language </label>
+      <select class="form-control" name="laguages" ngModel>
+        <option *ngFor="let lang of languages">
+          {{lang}}
+        </option>
+      </select>
+    </div>
+    <div class="date">
+      <label>Date hired</label>
+      <input type="date" name="date" class="form-control" ngModel>
+    </div>
+
+    <br>
+    <button class="btn btn-primary" type="submit">Ok</button>
+    <br>
+    <div class ="form-group">
+      {{form.pristine}}
+    </div>
+  </form>
+</div>
