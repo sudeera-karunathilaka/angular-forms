@@ -7,9 +7,10 @@ import { Employee } from '../employee/employee.model';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+  hasPrimaryLanguageError=false;
   
   languages = ['English', 'Spanish', 'Other'];
-  model = new Employee('Sudeera', 'Karunathilaka', true, 'w2', 'Spanish');
+  model = new Employee('Sudeera', 'Karunathilaka', true, 'w2', 'default');
   constructor() { }
 
   ngOnInit() {
@@ -22,5 +23,15 @@ export class HomeComponent implements OnInit {
     else{
       this.model.lastName = value;
     }
+  }
+
+  validatePrimaryLanguage(event){
+    if(this.model.primaryLanguage === 'default'){
+      this.hasPrimaryLanguageError = true;
+    }
+    else{
+      this.hasPrimaryLanguageError = false;
+    }
+    console.log(this.hasPrimaryLanguageError);
   }
 }

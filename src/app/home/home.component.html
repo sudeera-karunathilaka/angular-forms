@@ -3,14 +3,20 @@
   <!--"novalidate" means we have switched off browser validation as 
       the validation messages are different in different browsers-->
   <form #form="ngForm" novalidate>
+      <!-- "#form="ngForm"" => template referrence variable -->
     <!--"required" specify it is a mandatory field -->
     <div class="form-group">
       <label>First name</label>
       <!-- "form-control" takes up the full length of the view ccontrol-->
       <!--  [(ngModel)]="model.firstName" indicates the two way data binding-->
       <!-- "Banana in a box" syntax cannot be used to call a function -->
-      <input class="form-control" type="text" placeholder="First name" required 
+      <input #firstName ="ngModel" class="form-control" type="text" placeholder="First name" required 
         name ="firstName" [(ngModel)]="model.firstName">
+
+        <!-- Adding field validation -->
+        <div *ngIf="firstName.invalid && firstName.touched" class="alert alert-danger">
+          First name required
+        </div>
     </div>
 
     <div class="form-group">
@@ -44,9 +50,14 @@
           1099
         </label>
     </div>
-    <div class ="form-group">
+
+    <!-- Validating combo box-->
+    <div class ="form-group" [class.has-error]="hasPrimaryLanguageError">
       <label>Primary Language </label>
-      <select class="form-control" name="primaryLaguages" [(ngModel)]="model.primaryLanguage">
+      <select class="form-control" name="primaryLaguages" 
+        (blur)="validatePrimaryLanguage($event)"
+        [(ngModel)]="model.primaryLanguage">
+        <option value="default">Select a language...</option>
         <option *ngFor="let lang of languages">
           {{lang}}
         </option>
@@ -60,10 +71,11 @@
     <br>
     <button class="btn btn-primary" type="submit">Ok</button>
     <br>
-    <div class ="form-group">
-      {{form.pristine}}
-    </div>
   </form>
 
+  <br>
+  {{form.pristine}}
+
+  <br>
   Model: {{model | json}}
 </div>
